@@ -1,3 +1,5 @@
+package th.ku;
+
 import java.util.List;
 
 public interface BookDao {

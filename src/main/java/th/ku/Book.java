@@ -1,3 +1,5 @@
+package th.ku;
+
 public class Book {
     private int id;
     private String name;
@@ -35,7 +37,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "th.ku.Book{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price + '}';
