@@ -1,5 +1,6 @@
 package th.ku;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -18,11 +19,11 @@ public class BookDaoImp implements BookDao {
                 book.getId(), book.getName(), book.getPrice() };
 
         String testQuery = "SELECT * FROM book WHERE id = " + book.getId();
-        Book testBook = jdbcTemplate.queryForObject(testQuery, new BookRowMapper());
 
-        if (testBook != null) { // already have this in DB
+        try {
+            Book testBook = jdbcTemplate.queryForObject(testQuery, new BookRowMapper());
             update(book.getId(), book);
-        } else {
+        } catch (EmptyResultDataAccessException emptyEx) {
             jdbcTemplate.update(query, data);
         }
     }
