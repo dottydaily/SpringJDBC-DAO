@@ -6,4 +6,4 @@
 
 ### Description
 
-- To be continued...
+- Use Spring JDBC to manage Database
