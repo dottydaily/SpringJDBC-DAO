@@ -17,7 +17,14 @@ public class BookDaoImp implements BookDao {
         Object[] data = new Object[] {
                 book.getId(), book.getName(), book.getPrice() };
 
-        jdbcTemplate.update(query, data);
+        String testQuery = "SELECT * FROM book WHERE id = " + book.getId();
+        Book testBook = jdbcTemplate.queryForObject(testQuery, new BookRowMapper());
+
+        if (testBook != null) { // already have this in DB
+            update(book.getId(), book);
+        } else {
+            jdbcTemplate.update(query, data);
+        }
     }
 
     public void update(int id, Book book) {
@@ -29,7 +36,11 @@ public class BookDaoImp implements BookDao {
     }
 
     public void deleteById(int id) {
-        // TODO: add code to delete book
+        String query = "DELETE FROM book WHERE id = ?";
+        Object[] data = new Object[] {
+                id
+        };
+        jdbcTemplate.update(query, data);
     }
 
     public Book findById(int id) {
